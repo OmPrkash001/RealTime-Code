@@ -37,6 +37,10 @@ io.on("connection", (socket)=>{
         if(!rooms.has(roomId)){
             rooms.set(roomId,new Set());
         }
+
+        rooms.get(roomId).add(userName)
+
+        io.to(roomId).emit("userJoined", Array.from(rooms.get(currentRoom)))
     })
 })
 
