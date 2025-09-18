@@ -9,18 +9,36 @@ const App = () => {
   const[roomId, setRoomId] = useState("")
   const[userName, setUserName] = useState("")
 
+  const joinRoom = ()=>{
+    if(roomId && userName){
+      socket.emit("join", {roomId, userName})
+      setJoined(true)
+    }
+  }
+
+  const copyRoomId = ()=>{
+    
+  }
+
   if(!joined){
     return <div className="join-container">
       <div className="join-form">
         <h1>Join Code Room</h1>
         <input type="text" placeholder="Room Id" value={roomId} onChange={e=>setRoomId(e.target.value)} />
         <input type="text" placeholder="Your Name" value={userName} onChange={e=>setUserName(e.target.value)} />
-        <button>Join Room</button>
+        <button onClick={joinRoom}>Join Room</button>
       </div>
     </div>
   }
 
-  return <div>User Joined</div>
+  return <div className="editor-container">
+    <div className="sidebar">
+      <div className="room-info">
+        <h2>Code Room: {roomId}</h2>
+        <button onClick={copyRoomId}>Copy Id</button>
+      </div>
+    </div>
+  </div>
   
 }
 
